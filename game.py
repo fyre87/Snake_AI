@@ -22,9 +22,10 @@ RED = (200,0,0)
 BLUE1 = (0, 0, 255)
 BLUE2 = (0, 100, 255)
 BLACK = (0,0,0)
+GREY = (100, 100, 100)
 
 BLOCK_SIZE = 20
-SPEED = 200
+SPEED = 400
 
 class SnakeGameAI:
     
@@ -109,6 +110,43 @@ class SnakeGameAI:
         
     def _update_ui(self):
         self.display.fill(BLACK)
+
+        # draw some rectangles to indicate what the snake sees
+        #pygame.draw.rect(self.head, BLUE1, pygame.Rect(pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))
+
+        point_l = Point(self.head.x - 20, self.head.y)
+        point_r = Point(self.head.x + 20, self.head.y)
+        point_u = Point(self.head.x, self.head.y - 20)
+        point_d = Point(self.head.x, self.head.y + 20)
+
+        point_ul = Point(self.head.x - 20, self.head.y - 20)
+        point_ur = Point(self.head.x + 20, self.head.y - 20)
+        point_dl = Point(self.head.x - 20, self.head.y + 20)
+        point_dr = Point(self.head.x + 20, self.head.y + 20)
+        if self.direction == Direction.RIGHT:
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_r.x, point_r.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_u.x, point_u.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_d.x, point_d.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_ur.x, point_ur.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_dr.x, point_dr.y, BLOCK_SIZE, BLOCK_SIZE))
+        elif self.direction == Direction.LEFT:
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_l.x, point_l.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_u.x, point_u.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_d.x, point_d.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_ul.x, point_ul.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_dl.x, point_dl.y, BLOCK_SIZE, BLOCK_SIZE))
+        elif self.direction == Direction.UP:
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_l.x, point_l.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_u.x, point_u.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_r.x, point_r.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_ul.x, point_ul.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_ur.x, point_ur.y, BLOCK_SIZE, BLOCK_SIZE))
+        elif self.direction == Direction.DOWN:
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_l.x, point_l.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_d.x, point_d.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_r.x, point_r.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_dl.x, point_dl.y, BLOCK_SIZE, BLOCK_SIZE))
+            pygame.draw.rect(self.display, GREY, pygame.Rect(point_dr.x, point_dr.y, BLOCK_SIZE, BLOCK_SIZE))
         
         for pt in self.snake:
             pygame.draw.rect(self.display, BLUE1, pygame.Rect(pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))
